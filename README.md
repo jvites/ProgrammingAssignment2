@@ -50,17 +50,7 @@ cache and skips the computation. Otherwise, it calculates the mean of
 the data and sets the value of the mean in the cache via the `setmean`
 function.
 
-    cachemean <- function(x, ...) {
-            m <- x$getmean()
-            if(!is.null(m)) {
-                    message("getting cached data")
-                    return(m)
-            }
-            data <- x$get()
-            m <- mean(data, ...)
-            x$setmean(m)
-            m
-    }
+  
 
 ### Assignment: Caching the Inverse of a Matrix
 
@@ -103,3 +93,44 @@ In order to complete this assignment, you must do the following:
 ### Grading
 
 This assignment will be graded via peer assessment.
+
+### Example of use
+
+> a <- makeVector(c(1,2,3,4))
+> a$get()
+[1] 1 2 3 4 
+> a$getmean()
+NULL
+> cachemean(a)
+[1] 2.5
+> a$getmean()  # this is only to show you that the mean has been stored and does not affect anything
+[1] 2.5
+> cachemean(a)
+getting cached data
+[1] 2.5
+> a$set(c(10,20,30,40))
+> a$getmean()
+NULL
+> cachemean(a)
+[1] 25
+> cachemean(a)
+getting cached data
+[1] 25
+> a$get()
+[1] 10 20 30 40
+> a$setmean(0)  # do NOT call setmean() directly despite it being accessible for the reason you will see next
+> a$getmean()
+[1] 0      # obviously non-sense since...
+> a$get()
+[1] 10 20 30 40
+>cachemean(a)
+[1] 0    # as you can see the call to setmean() effectively corrupted the functioning of the code
+> a <- makeVector(c(5, 25, 125, 625))
+> a$get()
+[1] 5 25 125 625
+> cachemean(a)
+[1] 195
+> cachemean(a)
+getting cached data
+[1] 195
+
