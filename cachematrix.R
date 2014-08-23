@@ -12,15 +12,16 @@
 ### the selected matrix, and caches inverted matrix. 
 ### This function needs to be called before the second function cacheSolve()
 makeCacheMatrix <- function(x = matrix()) {
-  inv <- NULL
+  inv <- NULL   #### initializing the cached value
   set <- function(y) {
-          x <<- y
-          inv <<- NULL
+          x <<- y   #### stores matrix in local variable x
+          inv <<- NULL    #### initializes the cache
   }
-  get <- function() x
-  setinverse <- function(inverse) inv <<- inverse
-  getinverse <- function() inv
-  list(set = set, get = get, setinverse = setinverse, getinverse = getinverse)
+  get <- function() x  #### returns the "current" matrix
+  setinverse <- function(inverse) inv <<- inverse    #### sets the cache to the inverse of current matrix
+  getinverse <- function() inv    #### returns the inversed of the matrix from cache
+  #### returns the four functions that operate on the matrix and its inverse
+  list(set = set, get = get, setinverse = setinverse, getinverse = getinverse) 
 }
 
 
@@ -29,14 +30,15 @@ makeCacheMatrix <- function(x = matrix()) {
 ### This function calculates the inverse matrix using the solve() function but 
 ### only when the inverted matrix is not already cached.
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-  inv <- x$getinverse()
-  if(!is.null(inv)) {
-    message("getting cached data");
-    return(inv)
+  #### Return a matrix that is the inverse of 'x'
+  inv <- x$getinverse()  #### obtains the inverse from cache
+  if(!is.null(inv)) {    #### checks if the value has been store in chache
+    message("getting cached data");  #### if in cache, warns of cached matrix
+    return(inv)    #### returns cached matrix and ends
   }
-  mtrx <- x$get()
-  inv <- solve(mtrx)
-  x$setinverse(inv)
-  inv
+  #### If it id NULL, means the inverse has not been calculated
+  mtrx <- x$get()    #### retrieves the matrix stored in X
+  inv <- solve(mtrx)  #### uses R function solve() to evaluate the inverse
+  x$setinverse(inv)   #### sets the cache to the value of the inverse matrix
+  inv     #### returns the inverse of the matrix.
 }
