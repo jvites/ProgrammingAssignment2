@@ -8,19 +8,21 @@
 ### It consists of two related functions
 
 ## First Function
-### The first function creates and returns a list of functions that operate on
+### The first function "makeCacheMatrix" 
+### creates and returns a list of functions that operate on
 ### the selected matrix, and caches inverted matrix. 
 ### This function needs to be called before the second function cacheSolve()
 makeCacheMatrix <- function(x = matrix()) {
   inv <- NULL   #### initializing the cached value
-  set <- function(y) {
-          x <<- y   #### stores matrix in local variable x
-          inv <<- NULL    #### initializes the cache
+  set <- function(y) {  ## This function
+          x <<- y   #### stores matrix passed as argument (y) into local variable x
+          inv <<- NULL    #### initializes the cache for the inverted matix
   }
-  get <- function() x  #### returns the "current" matrix
+  get <- function() x  #### it has no arguments and returns the "current" matrix x
   setinverse <- function(inverse) inv <<- inverse    #### sets the cache to the inverse of current matrix
   getinverse <- function() inv    #### returns the inversed of the matrix from cache
-  #### returns the four functions that operate on the matrix and its inverse
+  
+  #### This function ends by returning the four functions that operate on the matrix and its inverse
   list(set = set, get = get, setinverse = setinverse, getinverse = getinverse) 
 }
 
