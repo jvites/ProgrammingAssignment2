@@ -1,6 +1,6 @@
 # Example for storing cached value in a function that is called repeatedly
 # with the same argument, calculates it the first time,
-# afterwards returns the chached value.
+# afterwards returns the chached value. 
 
 ## This function creates and returns a set of functions
 ## Relating to the vector that it is passed in its argument
